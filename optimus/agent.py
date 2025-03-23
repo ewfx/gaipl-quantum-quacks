@@ -1,6 +1,14 @@
 from servicenow import fetch_unassigned_incidents, get_assignment_group
 from mongo import get_agent_details
 
+
+
+from servicenow import assign_incident
+
+
+def markAssignment(incident_number,platformOwner):
+
+
 def send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments):
     """
     Send incident details to the assigned agent.
@@ -8,7 +16,8 @@ def send_to_agent(assignment_group, incident_number, priority, short_description
     agent_details = get_agent_details(assignment_group)
     agent_url = agent_details.get("restURL")
     agent_mail = agent_details.get("mailId")
-    
+    platformOwner=agent_details.get("platformOwner")
+    assign_incident(incident_number,platformOwner)
     # Log the details (replace with actual logic to send data)
     print(f"Agent URL: {agent_url}")
     print(f"Agent Email: {agent_mail}")
