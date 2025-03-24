@@ -22,6 +22,18 @@ def assign_incident(incident_sys_id, assigned_to):
     headers = {"Content-Type": "application/json"}
     requests.patch(url, auth=(SERVICENOW_USERNAME, SERVICENOW_PASSWORD), json=payload, headers=headers)
 
+
+def move_incident_status(incident_sys_id,state):
+    """
+    Move an incident to 'In Progress' in ServiceNow.
+    """
+    url = f"https://{SERVICENOW_INSTANCE}/api/now/table/incident/{incident_sys_id}"
+    payload = {"state": state}  # 2 -> In Progress
+    headers = {"Content-Type": "application/json"}
+
+    response = requests.patch(url, auth=(SERVICENOW_USERNAME, SERVICENOW_PASSWORD), json=payload, headers=headers)
+    return response.json()  
+
 def get_assignment_group(url):
     """
     Retrieve the assignment group name from a given URL.
