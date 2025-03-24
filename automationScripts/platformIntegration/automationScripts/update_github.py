@@ -1,11 +1,13 @@
-import requests
-import json
-import os
-from dotenv import load_dotenv
+
+
+
 import base64
 import sys
+import os
+from dotenv import load_dotenv
+import requests
+import json
 import logging
-
 
 
 logger = logging.getLogger(__name__)
@@ -17,8 +19,8 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 # GitHub Configuration
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Set in .env file
-REPO_OWNER = "subhash1612"
-REPO_NAME = "testPlatformAutomation"
+REPO_OWNER = "firaz-bug"
+REPO_NAME = "global-hackathon"
 FILE_PATH = "sample.txt"  # The path inside the repo
 COMMIT_MESSAGE = "Automated update via Django API"
 
