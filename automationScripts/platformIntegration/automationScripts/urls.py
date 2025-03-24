@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UpdateGitHubView, ProcessDataView
+from .views import UpdateGitHubView, ProcessDataView,createFileView
 
 urlpatterns = [
     path('update-github/', UpdateGitHubView.as_view(), name='update_github'),
