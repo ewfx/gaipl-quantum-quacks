@@ -1,13 +1,16 @@
 from servicenow import fetch_unassigned_incidents, get_assignment_group
 from mongo import get_agent_details
-
-
+from servicenow import move_incident_status
 
 from servicenow import assign_incident
 
 
 def markAssignment(incident_number,platformOwner):
-
+    """
+    Move an incident to 'In Progress' in ServiceNow.
+    """
+    move_incident_status(incident_number,platformOwner)
+    print(f"Incident {incident_number} moved to 'In Progress' state.")
 
 def send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments):
     """

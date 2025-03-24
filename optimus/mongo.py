@@ -24,7 +24,7 @@ def getLogs(startTime,endTime):
     collection = db["logs"]
     return collection.find({"timestamp": {"$gte": startTime, "$lte": endTime}})
 def getPlatformOwner(assignment_group):
-        """
+    """
     Retrieve platformOwner for a given assignment group from MongoDB.
     """
     client = MongoClient(MONGO_URI)
