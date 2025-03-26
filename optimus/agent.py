@@ -35,7 +35,7 @@ def send_to_agent(assignment_group, incident_number, priority, short_description
     }
 
     # Send the POST request
-    response = requests.post("http://127.0.0.1:8000/api/incidents/", json=payload)
+    response = requests.post(agent_url, json=payload)
 
     # Check the response status
     if response.status_code == 200 or response.status_code == 201:
