@@ -6,7 +6,7 @@ def fetch_unassigned_incidents():
     Fetch unassigned incidents from the ServiceNow API.
     """
     url = f"https://{SERVICENOW_INSTANCE}/api/now/table/incident"
-    params = {"sysparm_query": "state=1^assigned_toISEMPTY"}
+    params = {"sysparm_query": "assigned_toISEMPTY"}
     headers = {"Accept": "application/json"}
     response = requests.get(url, auth=(SERVICENOW_USERNAME, SERVICENOW_PASSWORD), headers=headers, params=params)
     if response.status_code == 200:
