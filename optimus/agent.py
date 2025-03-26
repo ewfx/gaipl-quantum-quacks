@@ -15,7 +15,7 @@ def markAssignment(incident_number,platformOwner):
     move_incident_status(incident_number,platformOwner)
     print(f"Incident {incident_number} moved to 'In Progress' state.")
 
-def send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments,status):
+def send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments,status,sys_id):
     """
     Send incident details to the assigned agent.
     """
@@ -23,7 +23,7 @@ def send_to_agent(assignment_group, incident_number, priority, short_description
     agent_url = agent_details.get("restURL")
     agent_mail = agent_details.get("mailId")
     platformOwner=agent_details.get("platformOwner")
-    assign_incident(incident_number,platformOwner)
+    assign_incident(sys_id,platformOwner)
 
     # Prepare the payload
     payload = {
@@ -32,7 +32,8 @@ def send_to_agent(assignment_group, incident_number, priority, short_description
         "short_description": short_description,
         "long_description": long_description,
         "comments": comments,
-        "state":status
+        "state":status,
+        "sys_id":sys_id
     }
 
     # Send the POST request
@@ -53,6 +54,8 @@ def send_to_agent(assignment_group, incident_number, priority, short_description
     print(f"Long Description: {long_description}")
     print(f"Comments: {comments}")
     print(f"State: {status}")
+    print(f"sys_id: {sys_id}")
+
 
 def process_incidents():
     """
@@ -67,9 +70,9 @@ def process_incidents():
         long_description = incident.get("description", "")
         comments = incident.get("comments", "")
         state=incident.get("state","")
-
+        sys_id=incident.get("sys_id","")
         
         if isinstance(assignment_group_detail, dict):
             assignment_group_link = assignment_group_detail.get("link")
             assignment_group = get_assignment_group(assignment_group_link)
-            send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments,state)
+            send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments,state,sys_id)
