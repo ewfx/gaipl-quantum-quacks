@@ -15,7 +15,7 @@ def markAssignment(incident_number,platformOwner):
     move_incident_status(incident_number,platformOwner)
     print(f"Incident {incident_number} moved to 'In Progress' state.")
 
-def send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments):
+def send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments,status):
     """
     Send incident details to the assigned agent.
     """
@@ -32,6 +32,7 @@ def send_to_agent(assignment_group, incident_number, priority, short_description
         "short_description": short_description,
         "long_description": long_description,
         "comments": comments,
+        "state":status
     }
 
     # Send the POST request
@@ -51,6 +52,7 @@ def send_to_agent(assignment_group, incident_number, priority, short_description
     print(f"Short Description: {short_description}")
     print(f"Long Description: {long_description}")
     print(f"Comments: {comments}")
+    print(f"State: {status}")
 
 def process_incidents():
     """
@@ -64,10 +66,10 @@ def process_incidents():
         short_description = incident.get("short_description", "")
         long_description = incident.get("description", "")
         comments = incident.get("comments", "")
-
+        state=incident.get("state","")
 
         
         if isinstance(assignment_group_detail, dict):
             assignment_group_link = assignment_group_detail.get("link")
             assignment_group = get_assignment_group(assignment_group_link)
-            send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments)
+            send_to_agent(assignment_group, incident_number, priority, short_description, long_description, comments,state)
